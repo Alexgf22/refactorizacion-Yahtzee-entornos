@@ -160,11 +160,16 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         fun smallStraight(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int):Int
         {
             var tallies =MutableList<Int>(6){0}
-            tallies[d1-1] += 1
+
+            for (dado in tallies) {
+                tallies[dado - 1]
+                tallies[dado - 1] += 1
+            }
+            /*tallies[d1-1] += 1
             tallies[d2-1] += 1
             tallies[d3-1] += 1
             tallies[d4-1] += 1
-            tallies[d5-1] += 1
+            tallies[d5-1] += 1*/
             if (tallies[0] == 1 && tallies[1] == 1 &&
                 tallies[2] == 1 && tallies[3] == 1 &&
                 tallies[4] == 1)
@@ -192,11 +197,11 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         fun fullHouse(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int):Int
         {
             var tallies =MutableList<Int>(6){0}
-            var _2 = false
+            var a2 = false
             var i = 0
-            var _2_at = 0
-            var _3 = false
-            var _3_at = 0
+            var at2 = 0
+            var a3 = false
+            var at3 = 0
             tallies[d1-1] += 1
             tallies[d2-1] += 1
             tallies[d3-1] += 1
@@ -205,20 +210,20 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
 
             for(i in 0 until 6)
                 if (tallies[i] == 2)
-                {   _2 = true
-                    _2_at = i + 1
+                {   a2 = true
+                    at2 = i + 1
                 }
 
             for(i in 0 until 6)
                 if (tallies[i] == 3)
-                {  _3 = true
-                    _3_at = i + 1
+                {  a3 = true
+                    at3 = i + 1
                 }
 
-            if(_2 and _3)
-                return _2_at * 2 + _3_at * 3
+            return if(a2 and a3)
+                at2 * 2 + at3 * 3
             else
-                return 0
+                0
         }
     }
 
@@ -236,7 +241,7 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         var i = 0
         for(i in 0 until dice.size)
             if (dice[i] == 5)
-                s = s + 5
+                s += 5
         return s
     }
 
@@ -245,7 +250,7 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         var sum = 0
         for(at in 0 until dice.size)
             if (dice[at] == 6)
-                sum = sum + 6
+                sum += 6
         return sum
     }
 }
