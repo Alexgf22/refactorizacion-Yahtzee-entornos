@@ -16,7 +16,7 @@ class YahtzeeRefactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         fun chance(d1:Int, d2:Int, d3:Int, d4:Int, d5:Int): Int
         {   var total = 0
             var lista = arrayListOf(d1,d2,d3,d4,d5)
-            total += reduce(add, [d1, d2, d3, d4, d5])
+            total += reduce(lista)
             return total
         }
 
@@ -46,6 +46,7 @@ class YahtzeeRefactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         @JvmStatic
         fun twos(d1:Int,d2:Int, d3:Int, d4:Int, d5:Int):Int
         {   var sum = 0
+            val dados = listOf(d1, d2, d3, d4, d5).size*2
             var cuenta = dados.count(2)
             return cuenta * 2
         }
@@ -53,8 +54,8 @@ class YahtzeeRefactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         @JvmStatic
         fun threes(d1:Int,d2:Int, d3:Int, d4:Int, d5:Int):Int
         {   var sum = 0
-
-            cuenta = dados.count(3)
+            val dados = listOf(d1, d2, d3, d4, d5).size*2
+            var cuenta = dados.count(3)
             return cuenta * 3
         }
 
@@ -223,5 +224,13 @@ class YahtzeeRefactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
                 sum += 6
         return sum
     }
+}
+
+private operator fun Any.times(i: Int): Int {
+
+}
+
+private fun Int.count(i: Int): Any {
+
 }
 

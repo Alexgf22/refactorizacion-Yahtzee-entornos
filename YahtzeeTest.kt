@@ -1,5 +1,3 @@
-import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class YahtzeeTest {
@@ -70,7 +68,7 @@ internal class YahtzeeTest {
 
 
     @Test
-    fun score_pair()
+    fun scorePair()
     {
         assert (6 == YahtzeeRefactorizado.scorePair(3,4,3,5,6))
         assert (10 == YahtzeeRefactorizado.scorePair(5,3,3,3,5))
@@ -78,7 +76,7 @@ internal class YahtzeeTest {
     }
 
     @Test
-    fun two_pair()
+    fun twoPair()
     {
         assert (16 == YahtzeeRefactorizado.twoPair(3,3,5,4,5))
         assert (18 == YahtzeeRefactorizado.twoPair(3,3,6,6,6))
@@ -86,7 +84,7 @@ internal class YahtzeeTest {
     }
 
     @Test
-    fun three_of_a_kind()
+    fun threeOfAKind()
     {
         assert (9 == YahtzeeRefactorizado.threeOfAKind(3,3,3,4,5))
         assert (15 == YahtzeeRefactorizado.threeOfAKind(5,3,5,4,5))
@@ -95,7 +93,7 @@ internal class YahtzeeTest {
     }
 
     @Test
-    fun four_of_a_kind()
+    fun fourOfAKind()
     {
         assert (12 == YahtzeeRefactorizado.fourOfAKind(3,3,3,3,5))
         assert (20 == YahtzeeRefactorizado.fourOfAKind(5,5,5,4,5))
