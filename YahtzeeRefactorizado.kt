@@ -1,4 +1,4 @@
-class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
+class YahtzeeRefactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
     (d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
     private var dice:MutableList<Int> = MutableList(6){0}
 
@@ -15,17 +15,14 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         @JvmStatic
         fun chance(d1:Int, d2:Int, d3:Int, d4:Int, d5:Int): Int
         {   var total = 0
-            total += d1
-            total += d2
-            total += d3
-            total += d4
-            total += d5
+            var lista = arrayListOf(d1,d2,d3,d4,d5)
+            total += reduce(add, [d1, d2, d3, d4, d5])
             return total
         }
 
         @JvmStatic
         fun yahtzee(dice:List<Int>):Int
-        {   var counts= MutableList<Int>(dice.size+1){0}
+        {   val counts= MutableList(dice.size+1){0}
             for(die in dice)
             {
                 counts[die-1]+=1
@@ -42,56 +39,28 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         fun ones(d1:Int,d2:Int, d3:Int, d4:Int, d5:Int):Int
         {   var sum = 0
             val dados = listOf(d1, d2, d3, d4, d5).size*2
-            if (d1 == 1)
-                sum += 1
-            if (d2 == 1)
-                sum += 1
-            if (d3 == 1)
-                sum += 1
-            if (d4 == 1)
-                sum += 1
-            if (d5 == 1)
-                sum += 1
-            return sum
+            var cuenta = dados.count(1)
+            return cuenta * 1
         }
 
         @JvmStatic
         fun twos(d1:Int,d2:Int, d3:Int, d4:Int, d5:Int):Int
         {   var sum = 0
-
-            if (d1 == 2)
-                sum += 2
-            if (d2 == 2)
-                sum += 2
-            if (d3 == 2)
-                sum += 2
-            if (d4 == 2)
-                sum += 2
-            if (d5 == 2)
-                sum += 2
-            return sum
+            var cuenta = dados.count(2)
+            return cuenta * 2
         }
 
         @JvmStatic
         fun threes(d1:Int,d2:Int, d3:Int, d4:Int, d5:Int):Int
         {   var sum = 0
 
-            if (d1 == 3)
-                sum += 3
-            if (d2 == 3)
-                sum += 3
-            if (d3 == 3)
-                sum += 3
-            if (d4 == 3)
-                sum += 3
-            if (d5 == 3)
-                sum += 3
-            return sum
+            cuenta = dados.count(3)
+            return cuenta * 3
         }
 
         @JvmStatic
-        fun score_pair(d1:Int,d2:Int, d3:Int, d4:Int, d5:Int):Int
-        {   var counts = MutableList<Int>(6){0}
+        fun scorePair(d1:Int, d2:Int, d3:Int, d4:Int, d5:Int):Int
+        {   val counts = MutableList(6){0}
             counts[d1-1] += 1
             counts[d2-1] += 1
             counts[d3-1] += 1
@@ -105,8 +74,8 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         }
 
         @JvmStatic
-        fun two_pair(d1:Int,d2:Int, d3:Int, d4:Int, d5:Int):Int
-        {   var counts = MutableList<Int>(6){0}
+        fun twoPair(d1:Int, d2:Int, d3:Int, d4:Int, d5:Int):Int
+        {   val counts = MutableList(6){0}
             counts[d1 - 1] += 1
             counts[d2 - 1] += 1
             counts[d3 - 1] += 1
@@ -116,20 +85,21 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
             var score = 0
             for(i in 0 until 6)
                 if (counts[6 - i - 1] >= 2)
-                {   n = n + 1
+                {
+                    n += 1
                     score += (6 - i)
                 }
 
-            if(n == 2)
-                return score * 2
+            return if(n == 2)
+                score * 2
             else
-                return 0
+                0
         }
 
         @JvmStatic
-        fun four_of_a_kind(_1: Int, _2: Int, d3: Int, d4: Int, d5: Int):Int
+        fun fourOfAKind(_1: Int, _2: Int, d3: Int, d4: Int, d5: Int):Int
         {
-            var tallies = MutableList<Int>(6){0}
+            val tallies = MutableList(6){0}
             tallies[_1-1] += 1
             tallies[_2-1] += 1
             tallies[d3-1] += 1
@@ -142,9 +112,9 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         }
 
         @JvmStatic
-        fun three_of_a_kind(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int):Int
+        fun threeOfAKind(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int):Int
         {
-            var t = MutableList<Int>(6){0}
+            val t = MutableList(6){0}
             t[d1-1] += 1
             t[d2-1] += 1
             t[d3-1] += 1
@@ -159,17 +129,17 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         @JvmStatic
         fun smallStraight(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int):Int
         {
-            var tallies =MutableList<Int>(6){0}
+            val tallies =MutableList(6){0}
 
-            for (dado in tallies) {
+            /*for (dado in tallies) {
                 tallies[dado - 1]
                 tallies[dado - 1] += 1
-            }
-            /*tallies[d1-1] += 1
+            }*/
+            tallies[d1-1] += 1
             tallies[d2-1] += 1
             tallies[d3-1] += 1
             tallies[d4-1] += 1
-            tallies[d5-1] += 1*/
+            tallies[d5-1] += 1
             if (tallies[0] == 1 && tallies[1] == 1 &&
                 tallies[2] == 1 && tallies[3] == 1 &&
                 tallies[4] == 1)
@@ -180,7 +150,7 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         @JvmStatic
         fun largeStraight(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int):Int
         {
-            var tallies =MutableList<Int>(6){0}
+            val tallies =MutableList(6){0}
             tallies[d1-1] += 1
             tallies[d2-1] += 1
             tallies[d3-1] += 1
@@ -196,7 +166,7 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
         @JvmStatic
         fun fullHouse(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int):Int
         {
-            var tallies =MutableList<Int>(6){0}
+            val tallies =MutableList(6){0}
             var a2 = false
             var i = 0
             var at2 = 0
@@ -255,4 +225,3 @@ class Yahtzee_refactorizado//dice= mutableListOf(d1,d2,d3,d4,d5,d6)
     }
 }
 
-}
